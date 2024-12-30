@@ -29,18 +29,6 @@ public class ShoppingSystem {
         }   
             public static void initializeProducts() {
                 
-                // Product product1 = new Product("Maxi", "maxi dress with floral design", 500);
-                // Product product2 = new Product("Crop tops", "Stylish crop tops", 900);
-                // Product product3 = new Product("Kurti", "Traditional Kurti", 1500);
-                // Product product4 = new Product("Jumpsuit", "Comfy Jumpsuit", 1800);
-                // Product product5 = new Product("Jeans", "Classic jeans", 2000);
-
-                // products.add(product1);
-                // products.add(product2);
-                // products.add(product3);
-                // products.add(product4);
-                // products.add(product5);
-
                 products.add(new Product("Maxi", "maxi dress with floral design", 500));
                 products.add(new Product("Crop tops", "Stylish crop tops", 900));
                 products.add(new Product("Kurti", "Traditional Kurti", 1500));
