@@ -79,7 +79,7 @@ public class Admin {
         System.out.println("2. Add Product");
         System.out.println("3. Remove Product");
         System.out.println("4. Update Product Quantity");
-        System.out.println("5. Remove Customer"); //not working
+        System.out.println("5. Remove Customer");
         System.out.println("6. Delete Seller Account");
         System.out.println("7. Delete Customer Account");
         System.out.println("8. Exit");
