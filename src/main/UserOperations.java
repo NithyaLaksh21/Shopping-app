@@ -1,6 +1,11 @@
 package main;
 
 import java.util.Scanner;
+import java.util.UUID;
+
+import main.entities.Admin;
+import main.entities.Customer;
+import main.entities.Seller;
 
 
 public class UserOperations {
@@ -8,6 +13,8 @@ public class UserOperations {
     static Scanner scanner = new Scanner(System.in);
     private static String password;
     private static String newPassword;
+    private static Database database = new Database();
+
 
     public static void login() {
         while(true) {
@@ -47,15 +54,11 @@ public class UserOperations {
     public static void createAccount() {
         System.out.println("Enter the type of account you want to create ? ");
         System.out.println("1. Seller");
-        System.out.println("2. Guest users");
+        System.out.println("2. Customer");
         System.out.println("3. Admin");
-        System.out.println("4. Customer");
         int userInput = scanner.nextInt();
         TypeOfUsers typeOfUsers = Menu.getUserType(userInput);
 
-        if(userInput == 2) {
-            System.out.println("You are a Guest User now, you won't be able to buy/cancel products. If you wanted to buy/cancel product from this store please choose accountType as Customer(4)");
-        }else{
             System.out.println("Enter mobile number: ");
             String mobileNumber = scanner.next();
             System.out.println("Enter password: ");
@@ -65,14 +68,41 @@ public class UserOperations {
                 System.out.println("Invalid phone number, Please enter a valid 10 digit phone number");
                 mobileNumber = scanner.next();
             }
-        }
+
+            if(userInput == 1) {
+                System.out.println("Enter name: ");
+                String name = scanner.next();
+                System.out.println("Enter email: ");
+                String email = scanner.next();
+                Seller seller = new Seller(UUID.randomUUID().toString(), mobileNumber, name, email, password);
+                database.addSeller(seller);
+                System.out.println("Successfully added seller account");
+            }
+            else if (userInput == 2){
+                System.out.println("Enter name: ");
+                String name = scanner.next();
+                System.out.println("Enter email: ");
+                String email = scanner.next();
+                Customer customer = new Customer(name, userInput, name, email, email);
+                database.addCustomer(customer);
+                System.out.println("Successfully added customer account");
+            }
+            else {
+                System.out.println("Enter name: ");
+                String name = scanner.next();
+                System.out.println("Enter email: ");
+                String email = scanner.next();
+                Admin admin = new Admin(name, email, email);
+                database.addAdmin(admin);
+                System.out.println("Successfully added Admin account");
+            }
+        // }
 
     
         switch (typeOfUsers) {
-            case SELLER -> Menu.displayUserOperations();
-            case GUESTUSER -> ShoppingSystem.displayProduct();
-            case ADMIN -> Menu.displayUserOperations();
-            case CUSTOMER -> Menu.displayUserOperations();
+            case SELLER -> {Seller.displaySellerOperations(); break;}
+            case ADMIN -> {Admin.displayAdminOperations(); break;}
+            case CUSTOMER ->{ Menu.displayUserOperations(); break;}
             default -> {break;}
         }
     }
