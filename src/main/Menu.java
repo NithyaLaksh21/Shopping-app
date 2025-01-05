@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Menu {
     static Scanner scanner = new Scanner(System.in);
 
-    public static void displayLoginMenu() {
+    public void displayLoginMenu() {
     
         System.out.println("*************Shopping***************");
         System.out.println("1. Already a customer? Sign in ");
@@ -42,15 +42,16 @@ public class Menu {
         }
     }
 
-    public static void handleUserOperations() {
+    public void handleUserOperations() {
         try {
             int choice = scanner.nextInt();
             switch (choice) {
-                case 1 -> { UserOperations.login(); 
-                            displayUserOperations();}
-                case 2 ->   displayUserOperations();
-                case 3 -> { UserOperations.createAccount(); 
-                            displayUserOperations();}
+                case 1 ->   UserOperations.login(); 
+                case 2 ->  { 
+                            ShoppingSystem.displayProduct();
+                            System.exit(1);
+                            }
+                case 3 -> { UserOperations.createAccount(); break;}
                 default ->  System.out.println("Invalid choice, please try again.");
             }
         } 
