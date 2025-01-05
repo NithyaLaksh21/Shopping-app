@@ -1,7 +1,8 @@
 package main.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
 import main.ShoppingSystem;
 
@@ -12,6 +13,9 @@ public class Seller {
     private String email;
     private String password;
     private static Scanner scanner = new Scanner(System.in);
+    private static List<Customer> customers = new ArrayList<>();
+    static Admin admin = new Admin("admin", "admin@gmail.com", "password");
+    static Seller seller = new Seller("1", "1234567890", "nits", "ni@example.com", "password");
 
 
     public Seller(String id, String phoneNumber, String name, String email, String password) {
@@ -100,7 +104,39 @@ public class Seller {
     public void removeCustomer() {
         System.out.println("Enter customer ID to remove: ");
         String customerIdStr = scanner.nextLine();
-        UUID customerId = UUID.fromString(customerIdStr);
-        ShoppingSystem.removeCustomer(customerId);
+        customers.removeIf(customer -> customer.getCustomerId().equals(customerIdStr));
+        System.out.println("Customer account deleted: " + customerIdStr);
     }
+
+    public void viewOrders() {
+        ShoppingSystem.displayCart();
+    }
+
+    public static void displaySellerOperations() {
+        System.out.println("************************************");
+        System.out.println("Enter your choice");
+        System.out.println("************************************");
+        System.out.println("1. View Products");
+        System.out.println("2. Add Product");
+        System.out.println("3. Remove Product");
+        System.out.println("4. Update Product Quantity");
+        System.out.println("5. Remove Customer"); //not working
+        System.out.println("6. Exit");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1 -> ShoppingSystem.displayProduct();
+            case 2 -> seller.addProducts();
+            case 3 -> seller.removeProduct();
+            case 4 -> seller.updateQuantityOfProducts();
+            case 5 -> seller.removeCustomer();
+            case 6 -> {
+                System.out.println("Exiting");
+                System.exit(1);
+            }
+            default -> System.out.println("Invalid choice . Please try again");
+        }                        
+    }
+
 }
